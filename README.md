@@ -5,4 +5,4 @@ members-
 Joshua
 Pradeesh
 Pranav
-Rishikeshwaran (edit this file if spelling is wrong sry)
+Rishikeswaran 
