@@ -1,6 +1,7 @@
 import tkinter as tk  #Imports tkinter; the gui package
 from tkinter import messagebox #imports the messagebox module within tkinter
 import sys                     #required for sys.exit()
+import time
 #import {backend module}     #custom made sql connectivity module
 
 
@@ -9,6 +10,13 @@ WIDTH=800
 
 
 mainbg='#8AFF33' #pick hexadecimal code for colour later guys)
+
+
+uname=""        #global variable for username
+phonenum=""     #global variable for phone num
+pid=""          #global variable for product ID
+
+
 
 def on_closing():          #function activates when window is closed
     if messagebox.askokcancel("Quit", "Do you want to quit?"):    #spawns messagebox asking if willing to quit
@@ -22,13 +30,14 @@ def on_closing():          #function activates when window is closed
 
 #functions for switching pages
 
-def store():
-    page=storepg()
+def storefunc():       #goes to store
+	page=storepg()
+			    
 
-def item(x):
+def item(x):				#goes to specified item
     page=itempg(x)
 
-def buy(x):
+def buy(x):                   #does to buy page of specified item
     page=buypg(x)
 
 
@@ -40,6 +49,48 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
 
     def __init__(self): # runs when object is created
 
+        def verify(username,passcode):           #checks if entered credentials are correct
+			#"cred={collect tuples from database}"
+
+            if username=="admin" and passcode=="root":
+                print('root mode activated') # add root account functionality
+			
+            elif username=="pranav" and passcode=="pass": #just for debugging
+                uname=username           
+                phonenum=passcode
+                storefunc()
+
+            else:
+                mainlabel['text']="Please enter valid credentials"
+		
+			#elif if (username,passcode) in cred:
+			
+				#global uname
+				#global phonenum
+				#uname=username			
+				#phonenum={value form rishi}
+
+				#storefunc()  #goes to store page
+        
+        def signup(username,passcode):
+
+            #add details to database
+            global uname
+            global phonenum
+            uname=username           
+            phonenum=passcode
+
+
+            mainlabel['text']="Successful...redirecting"    #fancy hoohoooo
+            time.sleep(0.5) 
+            mainlabel['text']="Successful...redirecting."
+            time.sleep(0.5)
+            mainlabel['text']="Successful...redirecting.."
+            time.sleep(0.5)
+            mainlabel['text']="Successful...redirecting..."
+            time.sleep(0.5)
+            storefunc()
+
         try:               #deletes previous frames if any previous frames exist
             frame.destroy()		 
         except:			
@@ -49,12 +100,20 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  #width and height goes from 0-1 where 1 is filling the entire thing
 
         
-        label=tk.Label(frame,text="Welcome to Uncle's market!",font="Roboto 40",bg="green")#creates text area
-        label.place(relx=0,rely=0,relwidth=1,relheight=0.2)#places it in frame
+        mainlabel=tk.Label(frame,text="Welcome to Uncle's market!",font="Roboto 40",bg="green")#creates text area
+        mainlabel.place(relx=0,rely=0,relwidth=1,relheight=0.2)#places it in frame
 
+        uentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #entry field
+        uentry.place(relx=0.25,rely=0.4,relwidth=0.5,relheight=0.075)
 
-        startbutt=tk.Button(frame,text="Visit store!",font="Roboto 20",bg="white",fg="black",command=lambda:store())
-        startbutt.place(relx=0.35,rely=0.5,relwidth=0.3,relheight=0.1) #places button in the window
+        pentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #entry field
+        pentry.place(relx=0.25,rely=0.5,relwidth=0.5,relheight=0.075)
+
+        startbutt=tk.Button(frame,text="Log in",font="Roboto 20",bg="white",fg="black",command=lambda:verify(uentry.get(),pentry.get()))
+        startbutt.place(relx=0.55,rely=0.75,relwidth=0.3,relheight=0.1) #places button in the window
+
+        signbutt=tk.Button(frame,text="sign up",font="Roboto 20",bg="white",fg="black",command=lambda:signup(uentry.get(),pentry.get()))
+        signbutt.place(relx=0.15,rely=0.75,relwidth=0.3,relheight=0.1) #places button in the window
 
 
 class storepg():   #a class created for the store
@@ -92,6 +151,10 @@ class itempg():
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
 
         if itemno==1:
+            global pid
+
+            pid="item1"
+
             label=tk.Label(frame,text=f"item{itemno}",font="Roboto 40",bg="green")                    
             label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
@@ -115,7 +178,15 @@ def buypg():
                 frame.destroy()		 
             except:			
                 pass
-            print("bought item")
+    	
+
+        frame=tk.Frame(root,bg=mainbg)
+        frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
+
+        label=tk.Label(frame,text=f"Enter your details",font="Roboto 40",bg="green")                    
+        label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
+
+
 
 
 root=tk.Tk()   #makes a root window 
