@@ -5,7 +5,7 @@ members-
 Joshua
 Pradeesh
 Pranav
-Rishikeshwaran (edit this file if spelling is wrong sry)
+Rishikeswaran
 
 the GUI folder is for the code for the GUI/front end
 
