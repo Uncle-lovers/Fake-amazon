@@ -13,7 +13,7 @@ mainbg='#8AFF33' #pick hexadecimal code for colour later guys)
 
 
 uname=""        #global variable for username
-phonenum=""     #global variable for phone num
+
 pid=""          #global variable for product ID
 
 
@@ -57,7 +57,8 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
 			
             elif username=="pranav" and passcode=="pass": #just for debugging
                 uname=username           
-                phonenum=passcode
+            
+
                 storefunc()
 
             else:
@@ -73,12 +74,14 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
 				#storefunc()  #goes to store page
         
         def signup(username,passcode):
+            print(f"user:{username}")
+            print(f"pass:{passcode}")
 
             #add details to database
             global uname
-            global phonenum
+            
             uname=username           
-            phonenum=passcode
+            
 
 
             mainlabel['text']="Successful...redirecting"    #fancy hoohoooo
@@ -155,36 +158,58 @@ class itempg():
 
             pid="item1"
 
-            label=tk.Label(frame,text=f"item{itemno}",font="Roboto 40",bg="green")                    
+        label=tk.Label(frame,text=f"item{itemno}",font="Roboto 40",bg="green")                    
+        label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
+
+
+        buybutt=tk.Button(frame,text="buy",bg="white",fg="black",command=lambda:buy(itemno))
+        buybutt.place(relx=0.45,rely=0.5,relwidth=0.1,relheight=0.1)
+
+
+class buypg():
+    def __init__(self,itemno):
+
+        def order(add,ph):
+            print(f"name:{uname},product:{pid},address:{add},phone:{ph}") #replace with db entry
+
+            messagebox.askokcancel("Alert","Successful!")
+            storefunc()
+        
+        if messagebox.askyesno("Alert",f"Do you want to purchase item{itemno}"):    #spawns messagebox asking if willing to quit
+            
+            try:               #deletes previous frames if any previous frames exist
+                frame.destroy()      
+            except:         
+                pass
+        
+
+            frame=tk.Frame(root,bg=mainbg)
+            frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
+
+            label=tk.Label(frame,text=f"Enter your details",font="Roboto 40",bg="green")                    
             label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
+            alabel=tk.Label(frame,text=f"Enter your address",font="Roboto 10",bg=mainbg)                    
+            alabel.place(relx=0,rely=0.3,relwidth=1,relheight=0.05)
 
-            buybutt=tk.Button(frame,text="buy",bg="white",fg="black",command=lambda:buy(1))
-            buybutt.place(relx=0.45,rely=0.5,relwidth=0.1,relheight=0.1)
+            adentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #address entry
+            adentry.place(relx=0.25,rely=0.4,relwidth=0.5,relheight=0.075)
 
+            plabel=tk.Label(frame,text=f"Enter your phone number",font="Roboto 10",bg=mainbg)                    
+            plabel.place(relx=0,rely=0.5,relwidth=1,relheight=0.05)
 
-def buypg():
-    def __init__(self,itemno):
-        
-        if not(messagebox.askyesno(f"Do you want to purchase item{itemno}")):    #spawns messagebox asking if willing to quit
-            pass
+            pentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #phone num entry
+            pentry.place(relx=0.25,rely=0.6,relwidth=0.5,relheight=0.075)
+
+            finalbutt=tk.Button(frame,text="buy",bg="white",fg="black",command=lambda:order(adentry.get(),pentry.get()))
+            finalbutt.place(relx=0.45,rely=0.7,relwidth=0.1,relheight=0.1)
 
 
         else:
-
+            item(itemno)
                 
         
-            try:               #deletes previous frames if any previous frames exist
-                frame.destroy()		 
-            except:			
-                pass
-    	
-
-        frame=tk.Frame(root,bg=mainbg)
-        frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
-
-        label=tk.Label(frame,text=f"Enter your details",font="Roboto 40",bg="green")                    
-        label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
+            
 
 
 
