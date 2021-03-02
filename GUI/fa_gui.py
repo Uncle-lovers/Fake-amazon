@@ -16,7 +16,13 @@ uname=""        #global variable for username
 
 pid=""          #global variable for product ID
 
+prodlist=["product1","product2","product3","product4","product5","product6"] #names of products
 
+f=open("desc.txt",'r')
+desclist=f.read()
+desclist=desclist.split("|pogline|")        #collects product descriptions
+
+f.close()
 
 def on_closing():          #function activates when window is closed
     if messagebox.askokcancel("Quit", "Do you want to quit?"):    #spawns messagebox asking if willing to quit
@@ -37,7 +43,7 @@ def storefunc():       #goes to store
 def item(x):				#goes to specified item
     page=itempg(x)
 
-def buy(x):                   #does to buy page of specified item
+def buy(x):                   #goes to buy page of specified item
     page=buypg(x)
 
 
@@ -49,6 +55,18 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
 
     def __init__(self): # runs when object is created
 
+        def helpinfo():
+            messagebox.showinfo("Help","""Welcome to our store (fill this part)
+cash on delivery only
+Team members
+============
+Joshua Sheron
+Pradeesh D
+Pranav H P
+Rishikeswaran (correct spelling if wrong)
+
+                """)
+
         def verify(username,passcode):           #checks if entered credentials are correct
 			#"cred={collect tuples from database}"
 
@@ -56,6 +74,7 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
                 print('root mode activated') # add root account functionality
 			
             elif username=="pranav" and passcode=="pass": #just for debugging
+                global uname
                 uname=username           
             
 
@@ -74,25 +93,32 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
 				#storefunc()  #goes to store page
         
         def signup(username,passcode):
-            print(f"user:{username}")
-            print(f"pass:{passcode}")
-
-            #add details to database
-            global uname
+            if username.strip()=="" or passcode.strip()=="":
+                messagebox.showinfo("Alert","Blank username/password found")
             
-            uname=username           
-            
+            #elif {check if username already exists in the database}:
+                #messagebox.showinfo("Alert","user already exists")
+
+            else: 
+                print(f"user:{username}")
+                print(f"pass:{passcode}")
+
+                #add details to database
+                global uname
+                
+                uname=username           
+                
 
 
-            mainlabel['text']="Successful...redirecting"    #fancy hoohoooo
-            time.sleep(0.5) 
-            mainlabel['text']="Successful...redirecting."
-            time.sleep(0.5)
-            mainlabel['text']="Successful...redirecting.."
-            time.sleep(0.5)
-            mainlabel['text']="Successful...redirecting..."
-            time.sleep(0.5)
-            storefunc()
+                mainlabel['text']="Successful...redirecting"    #fancy hoohoooo
+                time.sleep(0.1) 
+                mainlabel['text']="Successful...redirecting."
+                time.sleep(0.1)
+                mainlabel['text']="Successful...redirecting.."
+                time.sleep(0.1)
+                mainlabel['text']="Successful...redirecting..."
+                time.sleep(0.1)
+                storefunc()
 
         try:               #deletes previous frames if any previous frames exist
             frame.destroy()		 
@@ -118,6 +144,8 @@ class homepg():   #a class created for the homepage, check out POOP if you dont 
         signbutt=tk.Button(frame,text="sign up",font="Roboto 20",bg="white",fg="black",command=lambda:signup(uentry.get(),pentry.get()))
         signbutt.place(relx=0.15,rely=0.75,relwidth=0.3,relheight=0.1) #places button in the window
 
+        helpbutt=tk.Button(frame,text="help",font="Roboto 20",bg="white",fg="black",command=lambda:helpinfo())
+        helpbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) #places button in the window
 
 class storepg():   #a class created for the store
 
@@ -137,8 +165,24 @@ class storepg():   #a class created for the store
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
-        item1=tk.Button(frame,text="Item1",bg="white",fg="black",command=lambda:item(1))
-        item1.place(relx=0.45,rely=0.5,relwidth=0.1,relheight=0.1)
+        item1=tk.Button(frame,text="Item1",font="Roboto 20",bg="white",fg="black",command=lambda:item(1))
+        item1.place(relx=0.15,rely=0.3,relwidth=0.2,relheight=0.1)
+
+        item2=tk.Button(frame,text="Item2",font="Roboto 20",bg="white",fg="black",command=lambda:item(2))
+        item2.place(relx=0.65,rely=0.3,relwidth=0.2,relheight=0.1)
+
+        item3=tk.Button(frame,text="Item3",font="Roboto 20",bg="white",fg="black",command=lambda:item(3))
+        item3.place(relx=0.15,rely=0.5,relwidth=0.2,relheight=0.1)
+
+        item4=tk.Button(frame,text="Item4",font="Roboto 20",bg="white",fg="black",command=lambda:item(4))
+        item4.place(relx=0.65,rely=0.5,relwidth=0.2,relheight=0.1)
+
+        item5=tk.Button(frame,text="Item5",font="Roboto 20",bg="white",fg="black",command=lambda:item(5))
+        item5.place(relx=0.15,rely=0.7,relwidth=0.2,relheight=0.1)
+
+        item6=tk.Button(frame,text="Item6",font="Roboto 20",bg="white",fg="black",command=lambda:item(6))
+        item6.place(relx=0.65,rely=0.7,relwidth=0.2,relheight=0.1)
+
 
 
 class itempg():
@@ -153,29 +197,42 @@ class itempg():
         frame=tk.Frame(root,bg=mainbg)
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
 
-        if itemno==1:
-            global pid
+        
+        global pid
 
-            pid="item1"
+        pid=prodlist[itemno-1] #gets the name of item
 
-        label=tk.Label(frame,text=f"item{itemno}",font="Roboto 40",bg="green")                    
+        proddesc=desclist[itemno-1]  #gets the name of description
+
+        label=tk.Label(frame,text=f"{pid}",font="Roboto 40",bg="green")                    
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
-        buybutt=tk.Button(frame,text="buy",bg="white",fg="black",command=lambda:buy(itemno))
-        buybutt.place(relx=0.45,rely=0.5,relwidth=0.1,relheight=0.1)
+        desclabel=tk.Label(frame,text=f"{proddesc}",font="Roboto 15",bg=mainbg)                    
+        desclabel.place(relx=0.45,rely=0.2,relwidth=0.5,relheight=0.7)
 
+        buybutt=tk.Button(frame,text="buy",font="Roboto 20",bg="#ffff28",fg="black",command=lambda:buy(itemno))
+        buybutt.place(relx=0.65,rely=0.85,relwidth=0.2,relheight=0.1)
+
+        backbutt=tk.Button(frame,text="<- back to store",font="Roboto 10",bg="white",fg="black",command=lambda:storefunc())
+        backbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) 
 
 class buypg():
     def __init__(self,itemno):
 
         def order(add,ph):
-            print(f"name:{uname},product:{pid},address:{add},phone:{ph}") #replace with db entry
+            if add.strip()=="" or ph.strip()=="":
+                messagebox.showinfo("Alert","address/phone number is blank!")
 
-            messagebox.askokcancel("Alert","Successful!")
-            storefunc()
+
+            else:
+                
+                print(f"name:{uname},product:{pid},address:{add},phone:{ph}") #replace with db entry
+
+                messagebox.showinfo("Alert","Successful!")
+                storefunc()
         
-        if messagebox.askyesno("Alert",f"Do you want to purchase item{itemno}"):    #spawns messagebox asking if willing to quit
+        if messagebox.askyesno("Alert",f"Do you want to purchase {pid}"):    #spawns messagebox asking if willing to quit
             
             try:               #deletes previous frames if any previous frames exist
                 frame.destroy()      
@@ -186,7 +243,7 @@ class buypg():
             frame=tk.Frame(root,bg=mainbg)
             frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
 
-            label=tk.Label(frame,text=f"Enter your details",font="Roboto 40",bg="green")                    
+            label=tk.Label(frame,text=f"Enter your details {uname}",font="Roboto 40",bg="green")                    
             label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
             alabel=tk.Label(frame,text=f"Enter your address",font="Roboto 10",bg=mainbg)                    
@@ -204,6 +261,8 @@ class buypg():
             finalbutt=tk.Button(frame,text="buy",bg="white",fg="black",command=lambda:order(adentry.get(),pentry.get()))
             finalbutt.place(relx=0.45,rely=0.7,relwidth=0.1,relheight=0.1)
 
+            cancelbutt=tk.Button(frame,text="cancel",font="Roboto 10",bg="white",fg="black",command=lambda:item(itemno))
+            cancelbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) 
 
         else:
             item(itemno)
