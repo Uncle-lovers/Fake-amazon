@@ -36,6 +36,10 @@ def on_closing():          #function activates when window is closed
 
 #functions for switching pages
 
+
+def becomebezos():   #become the all-powerful jeff bezos
+    page=adminpg()
+
 def storefunc():       #goes to store
 	page=storepg()
 			    
@@ -129,7 +133,7 @@ Rishikeswaran (correct spelling if wrong)
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  #width and height goes from 0-1 where 1 is filling the entire thing
 
         
-        mainlabel=tk.Label(frame,text="Welcome to Uncle's market!",font="Roboto 40",bg="green")#creates text area
+        mainlabel=tk.Label(frame,text="Welcome to (name) market!",font="Roboto 40",bg="green")#creates text area
         mainlabel.place(relx=0,rely=0,relwidth=1,relheight=0.2)#places it in frame
 
         uentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #entry field
@@ -165,22 +169,22 @@ class storepg():   #a class created for the store
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
-        item1=tk.Button(frame,text="Item1",font="Roboto 20",bg="white",fg="black",command=lambda:item(1))
+        item1=tk.Button(frame,text=f"{prodlist[0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(1))
         item1.place(relx=0.15,rely=0.3,relwidth=0.2,relheight=0.1)
 
-        item2=tk.Button(frame,text="Item2",font="Roboto 20",bg="white",fg="black",command=lambda:item(2))
+        item2=tk.Button(frame,text=f"{prodlist[1]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(2))
         item2.place(relx=0.65,rely=0.3,relwidth=0.2,relheight=0.1)
 
-        item3=tk.Button(frame,text="Item3",font="Roboto 20",bg="white",fg="black",command=lambda:item(3))
+        item3=tk.Button(frame,text=f"{prodlist[2]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(3))
         item3.place(relx=0.15,rely=0.5,relwidth=0.2,relheight=0.1)
 
-        item4=tk.Button(frame,text="Item4",font="Roboto 20",bg="white",fg="black",command=lambda:item(4))
+        item4=tk.Button(frame,text=f"{prodlist[3]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(4))
         item4.place(relx=0.65,rely=0.5,relwidth=0.2,relheight=0.1)
 
-        item5=tk.Button(frame,text="Item5",font="Roboto 20",bg="white",fg="black",command=lambda:item(5))
+        item5=tk.Button(frame,text=f"{prodlist[4]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(5))
         item5.place(relx=0.15,rely=0.7,relwidth=0.2,relheight=0.1)
 
-        item6=tk.Button(frame,text="Item6",font="Roboto 20",bg="white",fg="black",command=lambda:item(6))
+        item6=tk.Button(frame,text=f"{prodlist[5]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(6))
         item6.place(relx=0.65,rely=0.7,relwidth=0.2,relheight=0.1)
 
 
