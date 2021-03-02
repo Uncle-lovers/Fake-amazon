@@ -2,7 +2,9 @@ import tkinter as tk  #Imports tkinter; the gui package
 from tkinter import messagebox #imports the messagebox module within tkinter
 import sys                     #required for sys.exit()
 import time
+import os        #for checking directories
 #import {backend module}     #custom made sql connectivity module
+
 
 
 HEIGHT=700  #var for height and width  (makes life easier by specifying here)
@@ -18,11 +20,18 @@ pid=""          #global variable for product ID
 
 prodlist=["product1","product2","product3","product4","product5","product6"] #names of products
 
+
 f=open("desc.txt",'r')
 desclist=f.read()
 desclist=desclist.split("|pogline|")        #collects product descriptions
 
 f.close()
+
+
+os.chdir('../assets') #changes directory to assets
+ #check if this line works in windows :I
+
+
 
 def on_closing():          #function activates when window is closed
     if messagebox.askokcancel("Quit", "Do you want to quit?"):    #spawns messagebox asking if willing to quit
@@ -215,6 +224,10 @@ class itempg():
         desclabel=tk.Label(frame,text=f"{proddesc}",font="Roboto 15",bg=mainbg)                    
         desclabel.place(relx=0.45,rely=0.2,relwidth=0.5,relheight=0.7)
 
+        pimage=tk.PhotoImage(file=f"item{itemno}.png")  #creates image object
+        imglabel=tk.Button(frame,image=pimage)                                            #creates label containing image
+        imglabel.place(relx=0.01,rely=0.21,relwidth=0.45,relheight=0.45)#adds img label to the frame
+      
         buybutt=tk.Button(frame,text="buy",font="Roboto 20",bg="#ffff28",fg="black",command=lambda:buy(itemno))
         buybutt.place(relx=0.65,rely=0.85,relwidth=0.2,relheight=0.1)
 
