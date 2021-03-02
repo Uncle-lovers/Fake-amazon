@@ -1,6 +1,8 @@
 # Fake-amazon
 The repo for the school project
 
+requires tkinter,sys,time,PIL and mysql.connector
+
 members-
 Joshua
 Pradeesh

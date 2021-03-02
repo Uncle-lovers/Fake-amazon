@@ -2,7 +2,6 @@ import tkinter as tk  #Imports tkinter; the gui package
 from tkinter import messagebox #imports the messagebox module within tkinter
 import sys                     #required for sys.exit()
 import time
-import os        #for checking directories
 #import {backend module}     #custom made sql connectivity module
 
 
@@ -28,9 +27,6 @@ desclist=desclist.split("|pogline|")        #collects product descriptions
 f.close()
 
 
-os.chdir('../assets') #changes directory to assets
- #check if this line works in windows :I
-
 
 
 def on_closing():          #function activates when window is closed
@@ -45,6 +41,8 @@ def on_closing():          #function activates when window is closed
 
 #functions for switching pages
 
+def logout(): #go to home page
+    page=homepg()
 
 def becomebezos():   #become the all-powerful jeff bezos
     page=adminpg()
@@ -61,10 +59,9 @@ def buy(x):                   #goes to buy page of specified item
 
 
 
-#Python Object Oriented Programming; also known as POOP
+#I do not know much about OOP so please excuse me 
 
-
-class homepg():   #a class created for the homepage, check out POOP if you dont understand this; or ask me, i know a lot about POOP!
+class homepg():   #a class created for the home page
 
     def __init__(self): # runs when object is created
 
@@ -84,7 +81,7 @@ Rishikeswaran (correct spelling if wrong)
 			#"cred={collect tuples from database}"
 
             if username=="admin" and passcode=="root":
-                print('root mode activated') # add root account functionality
+                becomebezos()
 			
             elif username=="pranav" and passcode=="pass": #just for debugging
                 global uname
@@ -160,6 +157,68 @@ Rishikeswaran (correct spelling if wrong)
         helpbutt=tk.Button(frame,text="help",font="Roboto 20",bg="white",fg="black",command=lambda:helpinfo())
         helpbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) #places button in the window
 
+
+
+
+class adminpg(): #become bezos
+    def __init__(self):
+
+
+
+        def searchdb(stype,value):
+
+
+            print(stype,value)
+            if stype ==0:
+                results['text']="Please select an option"
+            if value.strip()=="":
+                results['text']="Please enter a search term"
+
+            print("select * in whatever lmao")
+
+
+
+
+        try:               #deletes previous frames if any previous frames exist
+            frame.destroy()      
+        except:         
+            pass
+
+        frame=tk.Frame(root,bg=mainbg)
+        frame.place(relx=0,rely=0,relwidth=1,relheight=1)  
+
+        
+        label=tk.Label(frame,text="Admin mode",font="Roboto 40",bg="green")
+        label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
+
+        options=['Name','Phone no','Address','Product']
+
+        sop=tk.IntVar() #a special variable that holds the options in tkinter
+
+        sop1=tk.Radiobutton(frame,text="Search By Name",variable=sop,value=1,bg=mainbg)
+        sop1.place(relx=0.1,rely=0.21)
+
+        sop2=tk.Radiobutton(frame,text="Search By Phone",variable=sop,value=2,bg=mainbg)
+        sop2.place(relx=0.3,rely=0.21)
+
+        sop3=tk.Radiobutton(frame,text="Search By Address",variable=sop,value=3,bg=mainbg)
+        sop3.place(relx=0.5,rely=0.21)
+
+        sop4=tk.Radiobutton(frame,text="Search By Product",variable=sop,value=4,bg=mainbg)
+        sop4.place(relx=0.7,rely=0.21)
+
+        searchbar=tk.Entry(frame,bg="white",fg="black",font="Roboto 20") #entry field
+        searchbar.place(relx=0.1,rely=0.3,relwidth=0.5,relheight=0.075)
+
+        loutbutt=tk.Button(frame,text="log out",font="Roboto 20",bg="white",fg="black",command=lambda:logout()) #for logging out
+        loutbutt.place(relx=0.01,rely=0.9,relwidth=0.15,relheight=0.05) #places button in the window
+
+        searchbutt=tk.Button(frame,text="search",font="Roboto 15",bg="white",fg="black",command=lambda:searchdb(sop.get(),searchbar.get()))
+        searchbutt.place(relx=0.61,rely=0.315,relwidth=0.15,relheight=0.05) #places button in the window
+
+        results=tk.Label(frame,text="Admin mode",font="Roboto 10",bg="white")
+        results.place(relx=0.05,rely=0.4,relwidth=0.9,relheight=0.5)
+
 class storepg():   #a class created for the store
 
     def __init__(self): 
@@ -196,7 +255,8 @@ class storepg():   #a class created for the store
         item6=tk.Button(frame,text=f"{prodlist[5]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(6))
         item6.place(relx=0.65,rely=0.7,relwidth=0.2,relheight=0.1)
 
-
+        loutbutt=tk.Button(frame,text="log out",font="Roboto 20",bg="white",fg="black",command=lambda:logout()) #for logging out
+        loutbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) #places button in the window
 
 class itempg():
     def __init__(self,itemno):
@@ -224,10 +284,11 @@ class itempg():
         desclabel=tk.Label(frame,text=f"{proddesc}",font="Roboto 15",bg=mainbg)                    
         desclabel.place(relx=0.45,rely=0.2,relwidth=0.5,relheight=0.7)
 
-        pimage=tk.PhotoImage(file=f"item{itemno}.png")  #creates image object
-        imglabel=tk.Button(frame,image=pimage)                                            #creates label containing image
-        imglabel.place(relx=0.01,rely=0.21,relwidth=0.45,relheight=0.45)#adds img label to the frame
-      
+        pimage = tk.PhotoImage(file="item1.png")    #creates image object
+        imglabel=tk.Label(frame,image=pimage)                                            #creates label containing image
+        imglabel.place(relx=0.01,rely=0.31,relwidth=0.45,relheight=0.45)#adds img label to the frame
+        
+
         buybutt=tk.Button(frame,text="buy",font="Roboto 20",bg="#ffff28",fg="black",command=lambda:buy(itemno))
         buybutt.place(relx=0.65,rely=0.85,relwidth=0.2,relheight=0.1)
 
