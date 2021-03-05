@@ -352,7 +352,7 @@ class buypg():
 
 
 root=tk.Tk()   #makes a root window 
-root.title("Name of our company") #changes the title of the window (PICK NAME PLEASE)
+root.title("ZapZonics store") #changes the title of the window (PICK NAME PLEASE)
 #root.iconbitmap("logo.ico")      #sets window icon (please make ideas for icon)
 
 canvas=tk.Canvas(root, height=HEIGHT,width=WIDTH) #creates a canvas
