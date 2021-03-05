@@ -139,13 +139,13 @@ Rishikeswaran (correct spelling if wrong)
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  #width and height goes from 0-1 where 1 is filling the entire thing
 
         
-        mainlabel=tk.Label(frame,text="Welcome to (name) market!",font="Roboto 40",bg="green")#creates text area
+        mainlabel=tk.Label(frame,text="Welcome to ZapZonics!",font="Roboto 40",bg="green")#creates text area
         mainlabel.place(relx=0,rely=0,relwidth=1,relheight=0.2)#places it in frame
 
         uentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #entry field
         uentry.place(relx=0.25,rely=0.4,relwidth=0.5,relheight=0.075)
 
-        pentry=tk.Entry(frame,bg="white",fg="black",font="Roboto 15") #entry field
+        pentry=tk.Entry(frame,bg="white",fg="black",show='*',font="Roboto 15") #entry field
         pentry.place(relx=0.25,rely=0.5,relwidth=0.5,relheight=0.075)
 
         startbutt=tk.Button(frame,text="Log in",font="Roboto 20",bg="white",fg="black",command=lambda:verify(uentry.get(),pentry.get()))
