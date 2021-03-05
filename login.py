@@ -33,16 +33,31 @@ def credentialsE(username, password):#Login
 		db.commit()
 		
 	
-	
-
-
 def credentialsP(user, passw):
-	
 	mycursor.execute(f'SELECT password FROM CREDENTIALS WHERE username="{user}"')
-
 	result = mycursor.fetchall()
 	
 
 
-#sales
+def placeOrder(username,product,price,address,phono):
+	mycursor.execute(f'INSERT INTO PRODUCTS VALUES("{username}","{product}","{price}","{address}","{phono}")')
+	db.commit()
 
+
+def search(option,search):
+	if option=="1":
+		mycursor.execute(f'SELECT * FROM PRODUCTS WHERE USERNAME="{search}"')
+
+	elif option=="2":
+		mycursor.execute(f'SELECT * FROM PRODUCTS WHERE PRODUCT="{search}"')
+
+	elif option=="3":
+		mycursor.execute(f'SELECT * FROM PRODUCTS WHERE PRICE="{search}"')
+
+	elif option=="4":
+		mycursor.execute(f'SELECT * FROM PRODUCTS WHERE address="{search}"')
+
+	elif option=="5":
+		mycursor.execute(f'SELECT * FROM PRODUCTS WHERE PHONO="{search}"')
+
+	return mycursor.fetchall()
