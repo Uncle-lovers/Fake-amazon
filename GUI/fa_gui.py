@@ -258,6 +258,10 @@ class storepg():   #a class created for the store
         loutbutt=tk.Button(frame,text="log out",font="Roboto 20",bg="white",fg="black",command=lambda:logout()) #for logging out
         loutbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) #places button in the window
 
+
+
+
+
 class itempg():
     def __init__(self,itemno):
 
@@ -284,7 +288,9 @@ class itempg():
         desclabel=tk.Label(frame,text=f"{proddesc}",font="Roboto 15",bg=mainbg)                    
         desclabel.place(relx=0.45,rely=0.2,relwidth=0.5,relheight=0.7)
 
-        pimage = tk.PhotoImage(file="item1.png")    #creates image object
+        global pimage
+
+        pimage = tk.PhotoImage(file=f"item{itemno}.png")    #creates image object
         imglabel=tk.Label(frame,image=pimage)                                            #creates label containing image
         imglabel.place(relx=0.01,rely=0.31,relwidth=0.45,relheight=0.45)#adds img label to the frame
         
