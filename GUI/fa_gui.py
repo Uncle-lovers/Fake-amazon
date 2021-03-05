@@ -17,7 +17,7 @@ uname=""        #global variable for username
 
 pid=""          #global variable for product ID
 
-prodlist=["product1","product2","product3","product4","product5","product6"] #names of products
+prodlist=[("ALPHA","7,499"),("TAPTIME","10,000"),("JHOSHLET","1"),("PORTCOMP","69"),("EECHO BOX","2,500"),("GLAREELS","999999")] #names of products
 
 
 f=open("desc.txt",'r')
@@ -78,11 +78,17 @@ Rishikeswaran (correct spelling if wrong)
                 """)
 
         def verify(username,passcode):           #checks if entered credentials are correct
-			#"cred={collect tuples from database}"
+			
 
             if username=="admin" and passcode=="root":
                 becomebezos()
 			
+            #elif credentialsP(username,passcode):
+            	#global uname
+            	#uname=username
+
+            	#storefunc()
+
             elif username=="pranav" and passcode=="pass": #just for debugging
                 global uname
                 uname=username           
@@ -198,20 +204,23 @@ class adminpg(): #become bezos
         sop1=tk.Radiobutton(frame,text="Search By Name",variable=sop,value=1,bg=mainbg)
         sop1.place(relx=0.1,rely=0.21)
 
-        sop2=tk.Radiobutton(frame,text="Search By Phone",variable=sop,value=2,bg=mainbg)
+        sop2=tk.Radiobutton(frame,text="Search By Product",variable=sop,value=2,bg=mainbg)
         sop2.place(relx=0.3,rely=0.21)
 
-        sop3=tk.Radiobutton(frame,text="Search By Address",variable=sop,value=3,bg=mainbg)
+        sop3=tk.Radiobutton(frame,text="Search By Price",variable=sop,value=3,bg=mainbg)
         sop3.place(relx=0.5,rely=0.21)
 
-        sop4=tk.Radiobutton(frame,text="Search By Product",variable=sop,value=4,bg=mainbg)
+        sop4=tk.Radiobutton(frame,text="Search By Address",variable=sop,value=4,bg=mainbg)
         sop4.place(relx=0.7,rely=0.21)
+
+        sop5=tk.Radiobutton(frame,text="Search By Phone No",variable=sop,value=5,bg=mainbg)
+        sop5.place(relx=0.1,rely=0.25)
 
         searchbar=tk.Entry(frame,bg="white",fg="black",font="Roboto 20") #entry field
         searchbar.place(relx=0.1,rely=0.3,relwidth=0.5,relheight=0.075)
 
         loutbutt=tk.Button(frame,text="log out",font="Roboto 20",bg="white",fg="black",command=lambda:logout()) #for logging out
-        loutbutt.place(relx=0.01,rely=0.9,relwidth=0.15,relheight=0.05) #places button in the window
+        loutbutt.place(relx=0,rely=0,relwidth=0.15,relheight=0.05) #places button in the window
 
         searchbutt=tk.Button(frame,text="search",font="Roboto 15",bg="white",fg="black",command=lambda:searchdb(sop.get(),searchbar.get()))
         searchbutt.place(relx=0.61,rely=0.315,relwidth=0.15,relheight=0.05) #places button in the window
@@ -237,22 +246,22 @@ class storepg():   #a class created for the store
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
-        item1=tk.Button(frame,text=f"{prodlist[0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(1))
+        item1=tk.Button(frame,text=f"{prodlist[0][0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(1))
         item1.place(relx=0.15,rely=0.3,relwidth=0.2,relheight=0.1)
 
-        item2=tk.Button(frame,text=f"{prodlist[1]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(2))
+        item2=tk.Button(frame,text=f"{prodlist[1][0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(2))
         item2.place(relx=0.65,rely=0.3,relwidth=0.2,relheight=0.1)
 
-        item3=tk.Button(frame,text=f"{prodlist[2]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(3))
+        item3=tk.Button(frame,text=f"{prodlist[2][0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(3))
         item3.place(relx=0.15,rely=0.5,relwidth=0.2,relheight=0.1)
 
-        item4=tk.Button(frame,text=f"{prodlist[3]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(4))
+        item4=tk.Button(frame,text=f"{prodlist[3][0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(4))
         item4.place(relx=0.65,rely=0.5,relwidth=0.2,relheight=0.1)
 
-        item5=tk.Button(frame,text=f"{prodlist[4]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(5))
+        item5=tk.Button(frame,text=f"{prodlist[4][0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(5))
         item5.place(relx=0.15,rely=0.7,relwidth=0.2,relheight=0.1)
 
-        item6=tk.Button(frame,text=f"{prodlist[5]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(6))
+        item6=tk.Button(frame,text=f"{prodlist[5][0]}",font="Roboto 20",bg="white",fg="black",command=lambda:item(6))
         item6.place(relx=0.65,rely=0.7,relwidth=0.2,relheight=0.1)
 
         loutbutt=tk.Button(frame,text="log out",font="Roboto 20",bg="white",fg="black",command=lambda:logout()) #for logging out
@@ -276,8 +285,9 @@ class itempg():
 
         
         global pid
-
-        pid=prodlist[itemno-1] #gets the name of item
+        global price
+        pid=prodlist[itemno-1][0] #gets the name of item
+        price=prodlist[itemno-1][1] #gets the price of the item
 
         proddesc=desclist[itemno-1]  #gets the name of description
 
@@ -288,7 +298,7 @@ class itempg():
         desclabel=tk.Label(frame,text=f"{proddesc}",font="Roboto 15",bg=mainbg)                    
         desclabel.place(relx=0.45,rely=0.2,relwidth=0.5,relheight=0.7)
 
-        global pimage
+        global pimage   #prevents image from being garbage collected
 
         pimage = tk.PhotoImage(file=f"item{itemno}.png")    #creates image object
         imglabel=tk.Label(frame,image=pimage)                                            #creates label containing image
@@ -311,12 +321,12 @@ class buypg():
 
             else:
                 
-                print(f"name:{uname},product:{pid},address:{add},phone:{ph}") #replace with db entry
+                print(f"name:{uname},product:{pid},price:{price},address:{add},phone:{ph}") #replace with db entry
 
-                messagebox.showinfo("Alert","Successful!")
+                messagebox.showinfo("Alert",f"Successful!\nYour order will arive in 2 days\n{price} Rs must be paid on delivery")
                 storefunc()
         
-        if messagebox.askyesno("Alert",f"Do you want to purchase {pid}"):    #spawns messagebox asking if willing to quit
+        if messagebox.askyesno("Alert",f"Do you want to purchase {pid} \nprice:{price}"):    #spawns messagebox asking if willing to quit
             
             try:               #deletes previous frames if any previous frames exist
                 frame.destroy()      
