@@ -99,7 +99,7 @@ Rishikeswaran V""")
             	storefunc()
 
             else:
-                sublabel['text']="Please enter valid credentials"
+                mainlabel['text']="Please enter valid credentials"
 		
         
         def signup(username,passcode):
@@ -107,7 +107,7 @@ Rishikeswaran V""")
                 messagebox.showinfo("Alert","Blank username/password found")
             
             elif username=='admin':
-                sublabel["text"]=="Invalid username"
+                mainlabel["text"]=="Invalid username"
 
             elif login.credentialsE(username,passcode): #gives true if there is no username clash 
                 
@@ -118,18 +118,18 @@ Rishikeswaran V""")
                 
 
 
-                sublabel['text']="Successful...redirecting"    #fancy hoohoooo
+                mainlabel['text']="Successful...redirecting"    #fancy hoohoooo
                 time.sleep(0.1) 
-                sublabel['text']="Successful...redirecting."
+                mainlabel['text']="Successful...redirecting."
                 time.sleep(0.1)
-                sublabel['text']="Successful...redirecting.."
+                mainlabel['text']="Successful...redirecting.."
                 time.sleep(0.1)
-                sublabel['text']="Successful...redirecting..."
+                mainlabel['text']="Successful...redirecting..."
                 time.sleep(0.1)
                 storefunc()
 
             else:
-                sublabel["text"]=="Username already exists!"
+                mainlabel["text"]=="Username already exists!"
 
         try:               #deletes previous frames if any previous frames exist
             frame.destroy()		 
@@ -139,12 +139,17 @@ Rishikeswaran V""")
         frame=tk.Frame(root,bg=mainbg)#creates a frame  (
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  #width and height goes from 0-1 where 1 is filling the entire thing
 
+        global background_image
+        
+        background_image = tk.PhotoImage(file='bgblue.png')
+        background_label = tk.Label(frame, image=background_image)
+        background_label.place(relwidth=1, relheight=1)
         
         mainlabel=tk.Label(frame,text="ZapZonics",font="APlayfairDisplay 40",justify="left",bg=labelcol,fg=ltextcol)#creates text area
         mainlabel.place(relx=0,rely=0,relwidth=1,relheight=0.1)#places it in frame
 
-        sublabel=tk.Label(frame,text="login",font="Roboto 40",bg="grey",fg=ltextcol)#creates text area
-        sublabel.place(relx=0,rely=0.1,relwidth=1,relheight=0.1)
+        #sublabel=tk.Label(frame,text="login",font="Roboto 40",bg="grey",fg=ltextcol)#creates text area
+        #sublabel.place(relx=0,rely=0.1,relwidth=1,relheight=0.1)
 
         uentry=tk.Entry(frame,bg=buttoncol,fg="black",font="Roboto 15") #entry field
         uentry.place(relx=0.25,rely=0.4,relwidth=0.5,relheight=0.075)
@@ -159,7 +164,7 @@ Rishikeswaran V""")
         signbutt.place(relx=0.15,rely=0.75,relwidth=0.3,relheight=0.1) #places button in the window
 
         helpbutt=tk.Button(frame,text="help",font="Roboto 20",bg=buttoncol,fg="black",command=lambda:helpinfo())
-        helpbutt.place(relx=0.01,rely=0.21,relwidth=0.15,relheight=0.05) #places button in the window
+        helpbutt.place(relx=0.004,rely=0.11,relwidth=0.15,relheight=0.05) #places button in the window
 
 
 
