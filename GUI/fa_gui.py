@@ -72,59 +72,46 @@ class homepg():   #a class created for the home page
 
         def helpinfo():
             messagebox.showinfo("Help","""Welcome to our store (fill this part)
-cash on delivery only
+Cash on delivery only
+All deliveries take place within two days!!!
+Due to the current pandemic and the international silicon shortage,
+all orders are limited to one item
+
+
+
 Team members
 ============
-Joshua Sheron
+Joshua Sheron D
 Pradeesh D
 Pranav H P
-Rishikeswaran (correct spelling if wrong)
-
-                """)
+Rishikeswaran V""")
 
         def verify(username,passcode):           #checks if entered credentials are correct
-			
+            global uname
 
             if username=="admin" and passcode=="root":
                 becomebezos()
 			
-            #elif credentialsP(username,passcode):
-            	#global uname
-            	#uname=username
+            elif login.credentialsP(username,passcode): #for log in
+            	
+            	uname=username
 
-            	#storefunc()
-
-            elif username=="pranav" and passcode=="pass": #just for debugging
-                global uname
-                uname=username           
-            
-
-                storefunc()
+            	storefunc()
 
             else:
                 mainlabel['text']="Please enter valid credentials"
 		
-			#elif if (username,passcode) in cred:
-			
-				#global uname
-				#global phonenum
-				#uname=username			
-				#phonenum={value form rishi}
-
-				#storefunc()  #goes to store page
         
         def signup(username,passcode):
             if username.strip()=="" or passcode.strip()=="":
                 messagebox.showinfo("Alert","Blank username/password found")
             
-            #elif {check if username already exists in the database}:
-                #messagebox.showinfo("Alert","user already exists")
+            elif username=='admin':
+                mainlabel["text"]=="Invalid username"
 
-            else: 
-                print(f"user:{username}")
-                print(f"pass:{passcode}")
-
-                #add details to database
+            elif login.credentialsE(username,passcode): #gives true if there is no username clash 
+                
+            
                 global uname
                 
                 uname=username           
@@ -140,6 +127,9 @@ Rishikeswaran (correct spelling if wrong)
                 mainlabel['text']="Successful...redirecting..."
                 time.sleep(0.1)
                 storefunc()
+
+            else:
+                mainlabel["text"]=="Username already exists!"
 
         try:               #deletes previous frames if any previous frames exist
             frame.destroy()		 
@@ -159,10 +149,10 @@ Rishikeswaran (correct spelling if wrong)
         pentry=tk.Entry(frame,bg=buttoncol,fg="black",show='*',font="Roboto 15") #entry field
         pentry.place(relx=0.25,rely=0.5,relwidth=0.5,relheight=0.075)
 
-        startbutt=tk.Button(frame,text="Log in",font="Roboto 20",bg=buttoncol,fg="black",command=lambda:verify(uentry.get(),pentry.get()))
+        startbutt=tk.Button(frame,text="Log in",font="Roboto 20",bg=buttoncol,fg="black",command=lambda:verify((uentry.get()).strip(),(pentry.get()).strip()))
         startbutt.place(relx=0.55,rely=0.75,relwidth=0.3,relheight=0.1) #places button in the window
 
-        signbutt=tk.Button(frame,text="sign up",font="Roboto 20",bg=buttoncol,fg="black",command=lambda:signup(uentry.get(),pentry.get()))
+        signbutt=tk.Button(frame,text="sign up",font="Roboto 20",bg=buttoncol,fg="black",command=lambda:signup((uentry.get()).strip(),(pentry.get()).strip()))
         signbutt.place(relx=0.15,rely=0.75,relwidth=0.3,relheight=0.1) #places button in the window
 
         helpbutt=tk.Button(frame,text="help",font="Roboto 20",bg=buttoncol,fg="black",command=lambda:helpinfo())
@@ -179,13 +169,29 @@ class adminpg(): #become bezos
         def searchdb(stype,value):
 
 
-            print(stype,value)
+            
             if stype ==0:
                 results['text']="Please select an option"
-            if value.strip()=="":
+            elif value.strip()=="":
                 results['text']="Please enter a search term"
 
-            print("select * in whatever lmao")
+            else:
+                res=login.search(stype,value)
+
+                gap=" "*20
+                searchres="username"+gap+"product"+gap+"price"+gap+"address"+gap+"phonenum\n"# string for containing values
+                
+
+                for i in res:
+                    searchres+="\n"
+                    for j in i:
+                        searchres+=j+gap
+                    
+
+                if searchres.strip()=="":
+                	results['text']="no results"
+                else:
+                	results['text']=searchres
 
 
 
@@ -212,7 +218,7 @@ class adminpg(): #become bezos
         sop2=tk.Radiobutton(frame,text="Search By Product",variable=sop,value=2,bg=mainbg)
         sop2.place(relx=0.3,rely=0.21)
 
-        sop3=tk.Radiobutton(frame,text="Search By Price",variable=sop,value=3,bg=mainbg)
+        sop3=tk.Radiobutton(frame,text="Search By Price(greater than)",variable=sop,value=3,bg=mainbg)
         sop3.place(relx=0.5,rely=0.21)
 
         sop4=tk.Radiobutton(frame,text="Search By Address",variable=sop,value=4,bg=mainbg)
@@ -220,6 +226,9 @@ class adminpg(): #become bezos
 
         sop5=tk.Radiobutton(frame,text="Search By Phone No",variable=sop,value=5,bg=mainbg)
         sop5.place(relx=0.1,rely=0.25)
+
+        sop6=tk.Radiobutton(frame,text="Raw sql query",variable=sop,value=6,bg=mainbg)
+        sop6.place(relx=0.3,rely=0.25)
 
         searchbar=tk.Entry(frame,bg=buttoncol,fg="black",font="Roboto 20") #entry field
         searchbar.place(relx=0.1,rely=0.3,relwidth=0.5,relheight=0.075)
@@ -230,7 +239,7 @@ class adminpg(): #become bezos
         searchbutt=tk.Button(frame,text="search",font="Roboto 15",bg=buttoncol,fg="black",command=lambda:searchdb(sop.get(),searchbar.get()))
         searchbutt.place(relx=0.61,rely=0.315,relwidth=0.15,relheight=0.05) #places button in the window
 
-        results=tk.Label(frame,text="Admin mode",font="Roboto 10",bg=buttoncol)
+        results=tk.Label(frame,text="Admin mode",justify='left',font="Roboto 15",bg=buttoncol)
         results.place(relx=0.05,rely=0.4,relwidth=0.9,relheight=0.5)
 
 class storepg():   #a class created for the store
@@ -320,16 +329,26 @@ class buypg():
     def __init__(self,itemno):
 
         def order(add,ph):
-            if add.strip()=="" or ph.strip()=="":
-                messagebox.showinfo("Alert","address/phone number is blank!")
 
+            
+            
+            try:  #checks if the phone number is a number, raises error if it is not.
+                    int(ph)
+                    if add.strip()=="" or ph.strip()=="":
+                        messagebox.showinfo("Alert","address/phone number is blank!")
 
-            else:
+            
+                    else:
                 
-                print(f"name:{uname},product:{pid},price:{price},address:{add},phone:{ph}") #replace with db entry
+                        login.placeOrder(uname,pid,price,add,ph) #enters into db
+                
 
-                messagebox.showinfo("Alert",f"Successful!\nYour order will arive in 2 days\n{price} Rs must be paid on delivery")
-                storefunc()
+                        messagebox.showinfo("Alert",f"Successful!\nYour order will arrive in 2 days\n{price} Rs must be paid on delivery")
+                        storefunc()
+            except:
+                    messagebox.showinfo("Alert","Phone number contains non numeric values")
+            
+            
         
         if messagebox.askyesno("Alert",f"Do you want to purchase {pid} \nprice:{price}"):    #spawns messagebox asking if willing to quit
             
