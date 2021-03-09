@@ -6,8 +6,8 @@ import login     #custom made sql connectivity module
 
 
 
-HEIGHT=700  #var for height and width  (makes life easier by specifying here)
-WIDTH=800
+HEIGHT=1280  #var for height and width  (makes life easier by specifying here)
+WIDTH=720
 
 
 #mainbg='#8AFF33' #pick hexadecimal code for colour later guys)
@@ -394,6 +394,7 @@ class buypg():
 root=tk.Tk()   #makes a root window 
 root.title("ZapZonics store") #changes the title of the window (PICK NAME PLEASE)
 #root.iconbitmap("logo.ico")      #sets window icon (please make ideas for icon)
+root.geometry('1920x1080')
 
 canvas=tk.Canvas(root, height=HEIGHT,width=WIDTH) #creates a canvas
 canvas.pack()#adds the canvas to the root window
