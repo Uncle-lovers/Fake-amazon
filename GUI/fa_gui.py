@@ -335,8 +335,8 @@ class itempg():
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
-        desclabel=tk.Label(frame,text=f"{proddesc}",justify='left',font="Roboto 15",bg=mainbg)                    
-        desclabel.place(relx=0.45,rely=0.2,relwidth=0.5,relheight=0.7)
+        desclabel=tk.Label(frame,text=f"{proddesc}",justify='left',font="Roboto 15",bg="black",fg="white")                    
+        desclabel.place(relx=0.6,rely=0.37,relwidth=0.3,relheight=0.4)
 
         global pimage   #prevents image from being garbage collected
 
