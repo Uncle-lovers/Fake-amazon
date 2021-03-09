@@ -212,6 +212,12 @@ class adminpg(): #become bezos
         frame=tk.Frame(root,bg=mainbg)
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  
 
+        global background_image
+        
+        background_image = tk.PhotoImage(file='bgblue.png')
+        background_label = tk.Label(frame, image=background_image)
+        background_label.place(relwidth=1, relheight=1)
+        
         
         label=tk.Label(frame,text="Admin mode",font="Roboto 40",bg=labelcol,fg=ltextcol)
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
@@ -263,6 +269,12 @@ class storepg():   #a class created for the store
         frame=tk.Frame(root,bg=mainbg)
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  
 
+        global background_image
+        
+        background_image = tk.PhotoImage(file='bgblue.png')
+        background_label = tk.Label(frame, image=background_image)
+        background_label.place(relwidth=1, relheight=1)
+        
         
         label=tk.Label(frame,text="Store",font="Roboto 40",bg=labelcol,fg=ltextcol)
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
@@ -305,6 +317,12 @@ class itempg():
         frame=tk.Frame(root,bg=mainbg)
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
 
+        global background_image
+        
+        background_image = tk.PhotoImage(file='bgblue.png')
+        background_label = tk.Label(frame, image=background_image)
+        background_label.place(relwidth=1, relheight=1)
+        
         
         global pid
         global price
@@ -368,6 +386,13 @@ class buypg():
 
             frame=tk.Frame(root,bg=mainbg)
             frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
+
+            global background_image
+        
+            background_image = tk.PhotoImage(file='bgblue.png')
+            background_label = tk.Label(frame, image=background_image)
+            background_label.place(relwidth=1, relheight=1)
+        
 
             label=tk.Label(frame,text=f"Enter your details {uname}",font="Roboto 40",bg=labelcol,fg=ltextcol)                    
             label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
