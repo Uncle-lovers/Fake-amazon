@@ -13,11 +13,11 @@ WIDTH=720
 #mainbg='#8AFF33' #pick hexadecimal code for colour later guys)
 mainbg='white'
 
-labelcol='#A0BBBF'
+labelcol='#131921'
 
-buttoncol="#B3ADB1"
+buttoncol="#a2b4f0"
 
-
+ltextcol="white"
 uname=""        #global variable for username
 
 pid=""          #global variable for product ID
@@ -99,7 +99,7 @@ Rishikeswaran V""")
             	storefunc()
 
             else:
-                mainlabel['text']="Please enter valid credentials"
+                sublabel['text']="Please enter valid credentials"
 		
         
         def signup(username,passcode):
@@ -107,7 +107,7 @@ Rishikeswaran V""")
                 messagebox.showinfo("Alert","Blank username/password found")
             
             elif username=='admin':
-                mainlabel["text"]=="Invalid username"
+                sublabel["text"]=="Invalid username"
 
             elif login.credentialsE(username,passcode): #gives true if there is no username clash 
                 
@@ -118,18 +118,18 @@ Rishikeswaran V""")
                 
 
 
-                mainlabel['text']="Successful...redirecting"    #fancy hoohoooo
+                sublabel['text']="Successful...redirecting"    #fancy hoohoooo
                 time.sleep(0.1) 
-                mainlabel['text']="Successful...redirecting."
+                sublabel['text']="Successful...redirecting."
                 time.sleep(0.1)
-                mainlabel['text']="Successful...redirecting.."
+                sublabel['text']="Successful...redirecting.."
                 time.sleep(0.1)
-                mainlabel['text']="Successful...redirecting..."
+                sublabel['text']="Successful...redirecting..."
                 time.sleep(0.1)
                 storefunc()
 
             else:
-                mainlabel["text"]=="Username already exists!"
+                sublabel["text"]=="Username already exists!"
 
         try:               #deletes previous frames if any previous frames exist
             frame.destroy()		 
@@ -140,8 +140,11 @@ Rishikeswaran V""")
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  #width and height goes from 0-1 where 1 is filling the entire thing
 
         
-        mainlabel=tk.Label(frame,text="Welcome to ZapZonics!",font="Roboto 40",bg=labelcol)#creates text area
-        mainlabel.place(relx=0,rely=0,relwidth=1,relheight=0.2)#places it in frame
+        mainlabel=tk.Label(frame,text="ZapZonics",font="APlayfairDisplay 40",justify="left",bg=labelcol,fg=ltextcol)#creates text area
+        mainlabel.place(relx=0,rely=0,relwidth=1,relheight=0.1)#places it in frame
+
+        sublabel=tk.Label(frame,text="login",font="Roboto 40",bg="grey",fg=ltextcol)#creates text area
+        sublabel.place(relx=0,rely=0.1,relwidth=1,relheight=0.1)
 
         uentry=tk.Entry(frame,bg=buttoncol,fg="black",font="Roboto 15") #entry field
         uentry.place(relx=0.25,rely=0.4,relwidth=0.5,relheight=0.075)
@@ -205,7 +208,7 @@ class adminpg(): #become bezos
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  
 
         
-        label=tk.Label(frame,text="Admin mode",font="Roboto 40",bg=labelcol)
+        label=tk.Label(frame,text="Admin mode",font="Roboto 40",bg=labelcol,fg=ltextcol)
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
         options=['Name','Phone no','Address','Product']
@@ -256,7 +259,7 @@ class storepg():   #a class created for the store
         frame.place(relx=0,rely=0,relwidth=1,relheight=1)  
 
         
-        label=tk.Label(frame,text="Store",font="Roboto 40",bg=labelcol)
+        label=tk.Label(frame,text="Store",font="Roboto 40",bg=labelcol,fg=ltextcol)
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
@@ -305,7 +308,7 @@ class itempg():
 
         proddesc=desclist[itemno-1]  #gets the name of description
 
-        label=tk.Label(frame,text=f"{pid}",font="Roboto 40",bg=labelcol)                    
+        label=tk.Label(frame,text=f"{pid}",font="Roboto 40",bg=labelcol,fg=ltextcol)                    
         label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
 
@@ -361,7 +364,7 @@ class buypg():
             frame=tk.Frame(root,bg=mainbg)
             frame.place(relx=0,rely=0,relwidth=1,relheight=1)   
 
-            label=tk.Label(frame,text=f"Enter your details {uname}",font="Roboto 40",bg=labelcol)                    
+            label=tk.Label(frame,text=f"Enter your details {uname}",font="Roboto 40",bg=labelcol,fg=ltextcol)                    
             label.place(relx=0,rely=0,relwidth=1,relheight=0.2)
 
             alabel=tk.Label(frame,text=f"Enter your address",font="Roboto 10",bg=mainbg)                    
